@@ -32,7 +32,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <div class="navbar-nav  ml-auto mt-3 mt-lg-0">
-                        <a class="nav-link text-lg-start " href="https://dhalahorecinema.com">Home</a>
+                        <a class="nav-link text-lg-start ">Home</a>
                         <a href="{{ route('login') }}" class="nav-link ">Log in</a>
                         <a href="{{ route('register') }}" class="nav-link ">Register</a>
                     </div>
