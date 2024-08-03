@@ -1,0 +1,134 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 900;
+}
+
+header {
+    background: linear-gradient(180deg, #000000 14.19%, rgba(5, 4, 4, 0.815) 115.41%);
+    transition: all .3s linear;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    position: relative;
+    padding-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, rgb(107, 12, 12), black);
+    transition: width 0.3s;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 100%;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: black;
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: -ms-flexbox !important;
+        display: flex !important;
+        -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        justify-content: flex-end;
+        /* Use this to align items to the end */
+    }
+
+    .body_style {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        background-color: var(--secondary);
+        overflow-x: hidden;
+        position: relative;
+        top: 200px;
+        width: 100%
+    }
+
+}
+
+.image-text {
+    text-align: start;
+    margin: 15px;
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.text-overlay {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    color: white;
+    font-size: 17px;
+    font-weight: 400;
+    margin-left: 10px;
+    transition: bottom 0.3s;
+}
+
+.image_container {
+    position: relative;
+    overflow: hidden;
+}
+
+.image_container:hover .text-overlay {
+    animation: moveUp 0.5s linear forwards;
+}
+
+@keyframes moveUp {
+    0% {
+        bottom: -20px;
+    }
+    100% {
+        bottom: 60px;
+    }
+}
+
+.cinema-name {
+    margin: 15px;
+}
+
+.cinema-radio {
+    display: none;
+}
+
+.cinema-radio:checked + .image-text {
+    border: 5px solid black; /* Highlight border for selected cinema */
+    padding: 5px;
+}
+.custom_btn{
+    background-color: #A60D10;
+    color: white;
+}
+.custom_btn:hover{
+    background-color: #A60D10;
+    color: white;
+}
