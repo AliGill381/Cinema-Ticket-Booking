@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('cenima', function () {
+    return view('cenima/home');
+});
+Route::get('/showtimes', function () {
+    return view('cenima/showtimes');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

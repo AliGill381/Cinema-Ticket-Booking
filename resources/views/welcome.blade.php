@@ -11,81 +11,11 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+       <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+       <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+       <link rel="stylesheet" href="style.css">
 </head>
-<style>
-    .fixed-top {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 900;
-    }
 
-    header {
-        background: linear-gradient(180deg, #000000 14.19%, rgba(5, 4, 4, 0.815) 115.41%);
-        transition: all .3s linear;
-        padding: 0.5rem 1rem;
-    }
-
-    .navbar-nav .nav-link {
-        color: white;
-        position: relative;
-        padding-bottom: 8px;
-        transition: color 0.3s;
-    }
-
-    .navbar-nav .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(to right, rgb(107, 12, 12), black);
-        transition: width 0.3s;
-    }
-
-    .navbar-nav .nav-link:hover::after,
-    .navbar-nav .nav-link.active::after {
-        width: 100%;
-    }
-
-    .navbar-nav .nav-link:hover,
-    .navbar-nav .nav-link.active {
-        color: black;
-    }
-
-    @media (min-width: 992px) {
-        .navbar-expand-lg .navbar-collapse {
-            display: -ms-flexbox !important;
-            display: flex !important;
-            -ms-flex-preferred-size: auto;
-            flex-basis: auto;
-        }
-
-        .navbar-collapse {
-            -ms-flex-preferred-size: 100%;
-            flex-basis: 100%;
-            -ms-flex-positive: 1;
-            flex-grow: 1;
-            justify-content: flex-end;
-            /* Use this to align items to the end */
-        }
-
-        .body_style {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 24px;
-            background-color: var(--secondary);
-            overflow-x: hidden;
-            position: relative;
-            top: 200px;
-            width: 100%
-        }
-
-    }
-</style>
 
 <body>
     <header id="header" class="fixed-top">
@@ -113,26 +43,29 @@
     <div class=" body_style text-center">
         @yield('content')
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var navLinks = document.querySelectorAll('.nav-link');
-
-            navLinks.forEach(function(link) {
-                link.addEventListener('click', function() {
-                    navLinks.forEach(function(link) {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                });
-            });
-        });
-    </script>
+    @stack('scripts')
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.slick-carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                adaptiveHeight: true,
+                prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+                nextArrow: '<button type="button" class="slick-next">Next</button>'
+            });
+        });
     </script>
 </body>
 
