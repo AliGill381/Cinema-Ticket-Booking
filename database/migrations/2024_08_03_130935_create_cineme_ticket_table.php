@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('cineme_ticket', function (Blueprint $table) {
             $table->id();
+            $table->string('movies_name')->nullable();
+            $table->string('movies_image')->nullable();
+            $table->string('movies_description')->nullable();
+            $table->string('movies_price')->nullable();
+            $table->string('avaliable_seat')->nullable();
             $table->timestamps();
         });
     }
