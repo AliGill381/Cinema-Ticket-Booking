@@ -84,6 +84,47 @@
             width: 100%
         }
 
+        .text_data:hover {
+            border: solid black 1px
+        }
+        .modern-input {
+            border-radius: 12px;
+            border: 1px solid #ced4da;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .modern-input:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+            outline: none;
+        }
+
+        .invalid-feedback {
+            font-size: 0.875em;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            border-radius: 20px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .btn-link {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
     }
 </style>
 
@@ -102,7 +143,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <div class="navbar-nav  ml-auto mt-3 mt-lg-0">
-                        <a class="nav-link text-lg-start " href="https://dhalahorecinema.com">Home</a>
+                        <a class="nav-link text-lg-start ">Home</a>
                         <a href="{{ route('login') }}" class="nav-link ">Log in</a>
                         <a href="{{ route('register') }}" class="nav-link ">Register</a>
                     </div>
