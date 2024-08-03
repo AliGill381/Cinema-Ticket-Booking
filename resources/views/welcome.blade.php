@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title')</title>
-
+    <title>@yield('title', 'Welcome')</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -80,6 +79,9 @@
             line-height: 24px;
             background-color: var(--secondary);
             overflow-x: hidden;
+            position: relative;
+            top: 200px;
+            width: 100%
         }
 
     }
@@ -108,7 +110,7 @@
             </div>
         </nav>
     </header>
-    <div class="container body_style">
+    <div class=" body_style text-center">
         @yield('content')
     </div>
     <script>
