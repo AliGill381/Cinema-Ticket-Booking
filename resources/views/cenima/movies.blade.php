@@ -32,31 +32,7 @@
 <script>
     $(document).ready(function() {
         let nextPageUrl = $('#next-btn').data('url');
-        $('#next-btn').click(function() {
-            let movieid = $('input[name="cinema_location"]:checked').val();
-            let selectedCinemaId = $('.cinema-id').val();
-            let url = '/showtimes/' + movieid+'/'+selectedCinemaId;
-            console.log(url);
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(response) {
-                    $('.page_append').html('');
-                    $('.page_append').append(response.html);
-                    // nextPageUrl = response.next_page;
-                    // prevPageUrl = response.prev_page;
-
-                    // $('#next-btn').data('url', nextPageUrl);
-                    // $('#prev-btn').data('url', prevPageUrl);
-
-                    // $('#prev-btn').prop('disabled', !prevPageUrl);
-                    // $('#next-btn').prop('disabled', !nextPageUrl);
-                },
-                error: function(xhr) {
-                    console.log('Error:', xhr.responseText);
-                }
-            });
-        });
+       
         });
 </script>
 

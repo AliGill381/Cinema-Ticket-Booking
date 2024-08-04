@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('movies/{id}', [DashboardController::class, 'movies']);
 Route::get('showtimes/{id}/{id1}', [DashboardController::class, 'showTime']);
-
+Route::any('user-ticket-booking', [DashboardController::class, 'userTicketBooking']);
+Route::post('login_page', [DashboardController::class, 'login']);
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
