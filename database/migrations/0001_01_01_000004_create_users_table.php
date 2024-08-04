@@ -16,11 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->bigInteger('cinema_id')->unsigned()->nullable();
-            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
-            $table->bigInteger('cinema_ticket_id')->unsigned()->nullable();
-            $table->foreign('cinema_ticket_id')->references('id')->on('cinema_ticket')->onDelete('cascade');
+            $table->unsignedBigInteger('cinema_id')->nullable();
+            $table->foreign('cinema_id')->references('id')->on('cinema')->onDelete('cascade');    
+            $table->unsignedBigInteger('cinema_ticket_id')->nullable();
+            $table->foreign('cinema_ticket_id')->references('id')->on('cineme_ticket')->onDelete('cascade');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

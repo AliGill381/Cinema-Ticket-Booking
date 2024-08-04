@@ -8,36 +8,34 @@
                     <div class="col-4 text-start tex">
                         <label style="font-weight: 800" for="cinema-location">Cinema Location</label>
                         <select id="cinema-location" class="form-control">
-                            <option value="universal-cinema">Universal Cinema</option>
-                            <option value="platinum-cinema">Platinum Cinema</option>
-                            <option value="galaxy-cinema">Galaxy Cinema</option>
-                            <option value="star-cinema">Star Cinema</option>
-                            <option value="sunrise-cinema">Sunrise Cinema</option>
+                            @foreach ($cinemas as $cinema)
+                                <option value="{{ $cinema->id }}" {{ $cinemaId == $cinema->id ? 'selected' : '' }}>
+                                    {{ $cinema->cinema_name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-4 text-start tex">
                         <label style="font-weight: 800" for="movie">Movie</label>
                         <select id="movie" class="form-control">
-                            <option value="movie1">Avengers: Endgame</option>
-                            <option value="movie2">Spider-Man: No Way Home</option>
-                            <option value="movie3">Black Panther</option>
-                            <option value="movie4">Doctor Strange</option>
-                            <option value="movie5">Guardians of the Galaxy</option>
+                            @foreach ($tickets as $ticket)
+                                <option value="{{ $ticket->movie_id }}" {{ $moviesid == $ticket->movie_id ? 'selected' : '' }}>
+                                    {{ $ticket->movie->movies_name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-4 text-start tex">
                         <label style="font-weight: 800" for="showtime">Showtime</label>
                         <select id="showtime" class="form-control">
-                            <option value="10am">10:00 AM</option>
-                            <option value="1230pm">12:30 PM</option>
-                            <option value="3pm">03:00 PM</option>
-                            <option value="6pm">06:00 PM</option>
-                            <option value="9pm">09:00 PM</option>
+                            @foreach ($show_time as $time)
+                            <option value="{{$time['id']}}">{{$time['show_time']}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="w-100 text-end">
-                    <div class="px-5 mt-4" >
+                    <div class="px-5 mt-4">
                         <button class="btn btn-primary">Submit</button>
                     </div>
                 </div>

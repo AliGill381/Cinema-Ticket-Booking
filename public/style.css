@@ -85,13 +85,18 @@ header {
 
 .text-overlay {
     position: absolute;
-    bottom: -50px;
+    bottom: -200px;
     left: 0;
     color: white;
-    font-size: 17px;
+    font-size: 15;
     font-weight: 400;
     margin-left: 10px;
     transition: bottom 0.3s;
+    display: none;
+    width: 100%;
+    max-width: fit-content;
+    max-height: fit-content;
+    padding: 10px;
 }
 
 .image_container {
@@ -100,6 +105,7 @@ header {
 }
 
 .image_container:hover .text-overlay {
+    display: block;
     animation: moveUp 0.5s linear forwards;
 }
 
@@ -131,4 +137,32 @@ header {
 .custom_btn:hover{
     background-color: #A60D10;
     color: white;
+}
+.slick-slide {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.slick-slide.slick-active {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.slick-slide:not(.slick-active) {
+    transform: scale(0.9);
+    opacity: 0.7;
+}
+
+.slick-dots li button:before {
+    font-size: 12px; /* Adjust dot size */
+    color: #333; /* Dot color */
+}
+
+.slick-dots li.slick-active button:before {
+    color: #007bff; /* Active dot color */
+}
+
+.page-btn{
+    width: 100%;
+    position: relative;
+    bottom: 440;
 }
