@@ -106,6 +106,12 @@ class DashboardController extends Controller
                 'Message' => 'Ticket Booked Successfully  is save Successfully ',
             ], 200);
         }
+        else
+        {
+            return response()->json([
+                'Error' => 'Login required for ticket booking.',
+            ], 500); 
+        }
     }
     public function userDetail(Request $request)
     {

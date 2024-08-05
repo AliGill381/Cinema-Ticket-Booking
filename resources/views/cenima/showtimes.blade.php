@@ -158,7 +158,6 @@
                 e.preventDefault();
                 let url = '/user-ticket-booking';
                 let data = $('#form_data').serialize() + '&_token=' + getCsrfToken();
-
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -178,10 +177,17 @@
                         });
                     },
                     error: function(xhr) {
-                        $('.invalid-feedback-email').text('');
-                        $('.invalid-feedback-password').text('');
-                        $('.error-message-data').text('');
-                        $('.error-message-data').append(xhr.responseJSON.Error)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: xhr.responseJSON.Error ||
+                                'An error occurred. Please try again.',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            $('.invalid-feedback-email').text('');
+                            $('.invalid-feedback-password').text('');
+                            $('.error-message-data').text('');
+                        });
                     }
                 });
             });
