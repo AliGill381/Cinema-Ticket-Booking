@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cinema;
-use App\Models\CinemaTicket;
+use App\Models\CinemaShowTime;
 use App\Models\User;
-use App\Models\UserBooking;
+use App\Models\UserBookingDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +25,7 @@ class DashboardController extends Controller
                 'error' => 'Cinema not found',
             ], 404);
         }
-        $tickets = CinemaTicket::where('cinema_id', $cinemaId)->with('movie')->get()->unique('movie_id');
+        $tickets = CinemaShowTime::where('cinema_id', $cinemaId)->with('movie')->get()->unique('movie_id');
         $html = view('cenima/movies', compact('cinemaId', 'tickets'))->render();
 
         return response()->json([
@@ -45,8 +45,8 @@ class DashboardController extends Controller
             }
         }
 
-        $tickets = CinemaTicket::where('cinema_id', $cinemaId)->with('movie')->get()->unique('movie_id');
-        $show_time = CinemaTicket::where('movie_id', $moviesid)->select('show_time', 'movie_id', 'id')->get();
+        $tickets = CinemaShowTime::where('cinema_id', $cinemaId)->with('movie')->get()->unique('movie_id');
+        $show_time = CinemaShowTime::where('movie_id', $moviesid)->select('show_time', 'movie_id', 'id')->get();
         $cinemas = Cinema::all();
 
         if ($request->ajax()) {
@@ -83,28 +83,44 @@ class DashboardController extends Controller
             $cinema_id = $request->cinema_id;
             // $movie_id = $request->movie_id;
             $ticket_id = $request->show_time_id;
-            $cenima_ticket =CinemaTicket::find($ticket_id);
+            $cenima_ticket = CinemaShowTime::find($ticket_id);
             $avalible_seats = $cenima_ticket->avaliable_seat;
             $seats = $request->seats;
-            if(isset($avalible_seats) && ($avalible_seats == 0 || $avalible_seats < $seats)){
+            if (isset($avalible_seats) && ($avalible_seats == 0 || $avalible_seats < $seats)) {
                 return response()->json([
                     'Error' => 'No seats avalible ',
                 ], 500);
             }
-            $user = new UserBooking();
+            $user = new UserBookingDetail();
             $user->user_id = $userId;
             $user->cinema_id     = $cinema_id;
-            $user->cinema_ticket_id = $ticket_id;
+            $user->cinema_showtime_id = $ticket_id;
             $user->seats = $seats;
             $user->save();
-            if($user){
-                $new_seats = (int)$avalible_seats - $seats;  
-                $cenima_ticket->avaliable_seat= $new_seats;
-                $cenima_ticket->save();          
+            if ($user) {
+                $new_seats = (int)$avalible_seats - $seats;
+                $cenima_ticket->avaliable_seat = $new_seats;
+                $cenima_ticket->save();
             }
             return response()->json([
-                'Message' => 'Recoreded is save Successfully ',
+                'Message' => 'Ticket Booked Successfully  is save Successfully ',
             ], 200);
+        }
+    }
+    public function userDetail(Request $request)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $total_booking = UserBookingDetail::where('user_id', $user->id)
+                ->selectRaw('SUM(seats) as total_Seats, cinema_showtime_id, cinema_id')
+                ->groupBy('cinema_id', 'cinema_showtime_id')
+                ->with(['cinema' => function ($query) {
+                    $query->select('id', 'cinema_name');
+                }, 'cinemaTicket'])
+                ->get();
+            return view('user-detail.user-detail', compact('total_booking'));
+        } else {
+            abort(404);
         }
     }
 }

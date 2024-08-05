@@ -52,12 +52,14 @@
             } else {
                 let url = '/movies/' + selectedCinemaId;
                 console.log(url);
+                $('.loader-2').removeClass('d-none');
                 $.ajax({
                     url: url,
                     type: 'GET',
                     success: function(response) {
                         $('.page_append').html('');
                         $('.page_append').append(response.html);
+                        $('.loader-2').addClass('d-none');
                     },
                     error: function(xhr) {
                         console.log('Error:', xhr.responseText);

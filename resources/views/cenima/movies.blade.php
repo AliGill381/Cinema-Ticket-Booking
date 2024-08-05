@@ -23,6 +23,7 @@
             @endforeach
         </div>
     </div>
+    <p class="error_message page-btn" style="color: red"></p>
     <div class="">
         <button class="btn custom_btn "> <a style="color: bisque; text-decoration:none" href="{{ url('/') }}"> Prev
             </a></button>
@@ -36,24 +37,25 @@
             let movieid = $('input[name="cinema_location"]:checked').val();
             let selectedCinemaId = $('.cinema-id').val();
             let url = '/showtimes/' + movieid + '/' + selectedCinemaId;
-
             console.log(url);
-
-            // Update the browser's address bar without reloading the page
-            // history.pushState(null, '', url);
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(response) {
-                    $('.page_append').html('');
-                    $('.page_append').append(response.html);
-                    // Re-initialize any scripts or plugins for the newly added content if necessary
-                },
-                error: function(xhr) {
-                    console.log('Error:', xhr.responseText);
-                }
-            });
+            if (!movieid) {
+                $('.error_message').text(' Please Select the Movie First ');
+                return;
+            } else {
+                $('.loader-2').toggleClass('d-none');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        $('.page_append').html('');
+                        $('.page_append').append(response.html);
+                        $('.loader-2').addClass('d-none');
+                    },
+                    error: function(xhr) {
+                        console.log('Error:', xhr.responseText);
+                    }
+                });
+            }
         });
 
         window.addEventListener('popstate', function() {

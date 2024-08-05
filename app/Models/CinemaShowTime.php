@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CinemaTicket extends Model
+class CinemaShowTime extends Model
 {
     use HasFactory;
-    protected $table = 'cineme_ticket';
+    protected $table = 'cinema_showtimes';
     public function movie()
     {
-        return $this->belongsTo(Movie::class);
+        return $this->belongsTo(Movie::class, 'movie_id', 'id');
     }
 
 }

@@ -189,3 +189,126 @@ header {
     background-color: #0056b3;
     border-color: #004085;
 }
+.content-wrapper {
+    font-family: 'Arial', sans-serif;
+    background: #f4f7f6;
+    padding: 10px;
+}
+
+.card-custom {
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-custom:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.header-bg {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    padding: 30px 0;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: background 0.3s;
+}
+
+.header-bg:hover {
+    background: linear-gradient(135deg, #feb47b, #ff7e5f);
+}
+
+.header-text {
+    font-size: 2.5rem;
+    font-weight: 600;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.info-section {
+    margin: 20px 0;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s;
+}
+
+.info-section:hover {
+    background: #fff0e5;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+.info-value {
+    font-size: 1.2rem;
+    color: #555;
+    transition: color 0.3s;
+}
+
+.info-icon {
+    margin-right: 10px;
+    color: #ff7e5f;
+    transition: color 0.3s;
+}
+
+.info-label:hover .info-icon {
+    color: #feb47b;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+.loader {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+    text-align: center;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.loader-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader-2::after {
+    content: '';
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

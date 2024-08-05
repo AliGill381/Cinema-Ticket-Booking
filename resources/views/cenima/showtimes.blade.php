@@ -1,4 +1,3 @@
-    
     <h1 class="text-center mb-4">Select Your Movie Experience</h1>
     <div class="container p-5">
         <form id="form_data">
@@ -11,7 +10,8 @@
                             <label for="cinema-location" class="form-label">Cinema Location</label>
                             <select id="cinema-location" name="cinema_id" class="form-select">
                                 @foreach ($cinemas as $cinema)
-                                    <option value="{{ $cinema->id }}" {{ $cinemaId == $cinema->id ? 'selected' : '' }}>
+                                    <option value="{{ $cinema->id }}"
+                                        {{ $cinemaId == $cinema->id ? 'selected' : '' }}>
                                         {{ $cinema->cinema_name }}
                                     </option>
                                 @endforeach
@@ -46,34 +46,23 @@
                             <label for="seats" class="form-label">Seats</label>
                             <select id="seats" name="seats" class="form-select">
                                 @for ($i = 1; $i <= 10; $i++)
-                                    <option value="{{ $i }}">{{ $i }} {{ $i > 1 ? 'Seats' : 'Seat' }}
+                                    <option value="{{ $i }}">{{ $i }}
+                                        {{ $i > 1 ? 'Seats' : 'Seat' }}
                                     </option>
                                 @endfor
                             </select>
                         </div>
                     </div>
+                    <p class="error-message-data" style="color: red"></p>
                     <p class="d-none display-btn" data-data="{{ Auth::check() }}"></p>
                     <!-- Submit Button -->
-                    @if (!Auth::check())
-                        <div class="d-flex justify-content-end mt-4 without_auth">
-                            <button type="button" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm"
-                                data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Submit
-                            </button>
-                        </div>
-                    @endif
-                    <div class="d-flex justify-content-end mt-4 d-none with_auth">
+                    <div class="d-flex justify-content-end mt-4 with_auth">
                         <button type="submit"
                             class="btn btn-primary px-4 py-2 rounded-pill shadow-sm ticket-submit-form">Submit</button>
                     </div>
-
-
-
-
                 </div>
             </div>
         </form>
-
     </div>
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -96,7 +85,6 @@
                             <input type="password" class="form-control" name="password" id="password" required>
                             <p class="invalid-feedback-password" style="color: red"></p>
                         </div>
-                        <p class="error-message-data" style="color: red"></p>
 
                         <button type="submit" class="btn btn-primary login-submit-form">Login</button>
                     </form>
@@ -107,106 +95,95 @@
             </div>
         </div>
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    if ($('.display-btn').data('data') == 1) {
-        $('.with_auth').removeClass('d-none');
-    }
-   
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Function to get the CSRF token
-        function getCsrfToken() {
-            return $('meta[name="csrf-token"]').attr('content');
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        if ($('.display-btn').data('data') == 1) {
+            $('.with_auth').removeClass('d-none');
         }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function getCsrfToken() {
+                return $('meta[name="csrf-token"]').attr('content');
+            }
+            $('.login-submit-form').on('click', function(e) {
+                e.preventDefault();
+                let url = '/login_page';
+                let email = $('#email').val();
+                let password = $('#password').val();
 
-        // Handle login form submission
-        $('.login-submit-form').on('click', function(e) {
-            e.preventDefault();
-            let url = '/login_page';
-            let email = $('#email').val();
-            let password = $('#password').val();
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        email: email,
+                        password: password,
+                        _token: getCsrfToken()
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': getCsrfToken()
+                    },
+                    success: function(response) {
+                        $('.modal_close').click();
+                        $('.without_auth').addClass('d-none');
+                        $('.with_auth').removeClass('d-none');
+                    },
+                    error: function(xhr) {
+                        // Clear previous error messages
+                        $('.invalid-feedback-email').text('');
+                        $('.invalid-feedback-password').text('');
+                        $('.error-message-data').text('');
 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: {
-                    email: email,
-                    password: password,
-                    _token: getCsrfToken()
-                },
-                headers: {
-                    'X-CSRF-TOKEN': getCsrfToken()
-                },
-                success: function(response) {
-                    $('.modal_close').click();
-                    $('.without_auth').addClass('d-none');
-                    $('.with_auth').removeClass('d-none');
-                },
-                error: function(xhr) {
-                    // Clear previous error messages
-                    $('.invalid-feedback-email').text('');
-                    $('.invalid-feedback-password').text('');
-                    $('.error-message-data').text('');
-
-                    // Handle errors
-                    let response = xhr.responseJSON;
-                    if (response.errors) {
-                        if (response.errors.email) {
-                            $('.invalid-feedback-email').html(response.errors.email.join('<br>'));
+                        // Handle errors
+                        let response = xhr.responseJSON;
+                        if (response.errors) {
+                            if (response.errors.email) {
+                                $('.invalid-feedback-email').html(response.errors.email.join(
+                                    '<br>'));
+                            }
+                            if (response.errors.password) {
+                                $('.invalid-feedback-password').html(response.errors.password
+                                    .join('<br>'));
+                            }
+                        } else {
+                            $('.error-message-data').text('Invalid credentials.');
                         }
-                        if (response.errors.password) {
-                            $('.invalid-feedback-password').html(response.errors.password.join('<br>'));
-                        }
-                    } else {
-                        $('.error-message-data').text('Invalid credentials.');
                     }
-                }
+                });
+            });
+
+            // Handle ticket submit form submission
+            $('.ticket-submit-form').on('click', function(e) {
+                e.preventDefault();
+                let url = '/user-ticket-booking';
+                let data = $('#form_data').serialize() + '&_token=' + getCsrfToken();
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    headers: {
+                        'X-CSRF-TOKEN': getCsrfToken()
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: response.Message || 'Ticket booked successfully.',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            $('.modal_close').click();
+                            window.location.reload();
+                        });
+                    },
+                    error: function(xhr) {
+                        $('.invalid-feedback-email').text('');
+                        $('.invalid-feedback-password').text('');
+                        $('.error-message-data').text('');
+                        $('.error-message-data').append(xhr.responseJSON.Error)
+                    }
+                });
             });
         });
-
-        // Handle ticket submit form submission
-        $('.ticket-submit-form').on('click', function(e) {
-            e.preventDefault();
-            let url = '/user-ticket-booking';
-            let data = $('#form_data').serialize() + '&_token=' + getCsrfToken();
-
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: data,
-                headers: {
-                    'X-CSRF-TOKEN': getCsrfToken()
-                },
-                success: function(response) {
-                    $('.modal_close').click();
-                    $('.without_auth').addClass('d-none');
-                    $('.with_auth').removeClass('d-none');
-                    window.location.reload();
-                },
-                error: function(xhr) {
-                    // Clear previous error messages
-                    $('.invalid-feedback-email').text('');
-                    $('.invalid-feedback-password').text('');
-                    $('.error-message-data').text('');
-
-                    // Handle errors
-                    let response = xhr.responseJSON;
-                    if (response.errors) {
-                        if (response.errors.email) {
-                            $('.invalid-feedback-email').html(response.errors.email.join('<br>'));
-                        }
-                        if (response.errors.password) {
-                            $('.invalid-feedback-password').html(response.errors.password.join('<br>'));
-                        }
-                    } else {
-                        $('.error-message-data').text('Invalid credentials.');
-                    }
-                }
-            });
-        });
-    });
-</script>
-    
+    </script>

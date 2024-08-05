@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cineme_ticket', function (Blueprint $table) {
+        Schema::create('cinema_showtimes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('movie_id')->nullable();
-            $table->foreign('movie_id')->references('id')->on('movie')->onDelete('cascade');
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
             $table->unsignedBigInteger('cinema_id')->nullable();
-            $table->foreign('cinema_id')->references('id')->on('cinema')->onDelete('cascade');
+            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
             $table->string('show_time')->nullable();
             $table->string('avaliable_seat')->nullable();
             $table->timestamps();

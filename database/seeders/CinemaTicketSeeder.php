@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\CinemaTicket;
+use App\Models\CinemaShowTime;
 
 class CinemaTicketSeeder extends Seeder
 {
@@ -12,7 +12,7 @@ class CinemaTicketSeeder extends Seeder
      */
     public function run(): void
     {
-        CinemaTicket::insert([
+        CinemaShowTime::insert([
             [
                  
                 'movie_id' => 1,

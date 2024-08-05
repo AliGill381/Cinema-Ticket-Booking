@@ -9,6 +9,7 @@ Route::get('movies/{id}', [DashboardController::class, 'movies']);
 Route::get('showtimes/{id}/{id1}', [DashboardController::class, 'showTime']);
 Route::any('user-ticket-booking', [DashboardController::class, 'userTicketBooking']);
 Route::post('login_page', [DashboardController::class, 'login']);
+ Route::get('/user-detail', [DashboardController::class, 'userDetail']);
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

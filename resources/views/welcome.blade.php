@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
 
@@ -49,6 +50,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                                     <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('user-detail') }}">Details</a></li>
                                     <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
@@ -64,9 +66,11 @@
         </nav>
     </header>
     <div class=" body_style text-center">
+        <div id="loader" class="loader-2 d-none"></div>
         @yield('content')
     </div>
     @stack('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
